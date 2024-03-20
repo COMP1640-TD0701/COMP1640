@@ -37,7 +37,8 @@
     "express-handlebars": "^5.1.0",
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^5.9.27"
+    "mongoose": "^5.9.27",
+    "nodemailer": "^6.9.12"
   },
   "devDependencies": {
     "lint-staged": "^13.2.3",

@@ -1,5 +1,6 @@
 const AcademicYear = require("../models/AcademicYear");
 const {mutipleMongooseToObjects,mongoseToObject}= require('../../util/mongoose')
+const nodemailer = require('nodemailer');
 
 class AdminController {
     
@@ -15,8 +16,32 @@ class AdminController {
         console.log(academicYear);
         academicYear.save();
         // res.send('AcademicYear saved')
-        res.redirect('./view')
+         // Send email notification
+        const transporter = nodemailer.createTransport({
+            // Configure your email service settings here
+            // For example, using Gmail SMTP:
+            service: 'gmail',
+            auth: {
+                user: 'hieuntgcd201925@fpt.edu.vn',
+                pass: 'qtuu cpxg ltny tiud',
+            },
+        });
 
+        const mailOptions = {
+            from: 'hieuntgcd201925@fpt.edu.vn',
+            to: 'greenwichnotification@gmail.com', // Replace with the admin's email address
+            subject: 'Academic Year Created',
+            text: 'You have 14 days to reply.',
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Error sending email:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+        });
+        res.redirect('./view');
     }
 
     //[GET] /academic/view
